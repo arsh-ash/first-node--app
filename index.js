@@ -5,6 +5,10 @@ port=8000;
 const router=require("./routes");
 app.set('view engine', 'ejs');
 app.set("views","./views");
+const expressLayouts=require("express-ejs-layouts");
+app.use(express.static("./assets"));
+app.use(expressLayouts);
+
 
 
 //middleware home page chlte is router ki index file m cla jaega
