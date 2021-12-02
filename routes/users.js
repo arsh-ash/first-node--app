@@ -10,7 +10,7 @@ router.get("/profile",userController.profile);
 router.get("/signin",userController.signIn);
 router.get("/signup",userController.signUp);
 router.post("/create",userController.create);
-router.post("/create-sssion");
+router.post("/create-session",userController.createSession);
 
 
 
