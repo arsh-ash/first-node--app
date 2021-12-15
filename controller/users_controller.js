@@ -48,4 +48,25 @@ module.exports.create = function (req, res) {
   );
 };
 
-// module.exports.createSession = function (req, res) {};
+ module.exports.createSession = function (req, res) {
+  User.findOne({email:req.body.email},function(err,user){
+        console.log("boom",user);
+        if(err){
+        console.log("error in finding user");
+        }
+        if(user){
+            if(req.body.password==user.password){
+                console.log("hiiiiii")
+                res.cookie("user_id",user._id);
+                return res.redirect("/users/profile");
+
+            }
+                return res.redirect("back");
+            
+        }else{
+            return res.redirect("back");
+
+        }
+       
+    })
+ };
