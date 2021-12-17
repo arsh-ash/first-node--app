@@ -7,12 +7,17 @@ port=9000;
 app.set('view engine', 'ejs');
 app.set("views","./views");
 const expressLayouts=require("express-ejs-layouts");
+
+const MongoStore=require("connect-mongo");
+
+
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static("./assets"));
 app.use(expressLayouts);
 app.set("layout extractStyles",true);
 const db=require("./config/mongoose");
+
 
 
 
@@ -34,10 +39,17 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: (1000 * 60 * 100)
-    }
+    },
+    store:MongoStore.create({
+        mongoUrl:'mongodb://localhost/contact_list_db',
+        autoRemove:'disabled',
+    },function(err){
+        console.log(err || 'connect-mongdb setup');
+    })
+   
 }));
 
-
+console.log("we are ging to use passport")
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);

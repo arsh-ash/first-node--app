@@ -1,3 +1,26 @@
 <header>
+
+    <% if(locals.user){%> 
+
+        <ul>
+            <li>
+                <p><%= locals.user.name %></p>
+                <a href="/users/signout"> sign-out</a>
+            </li>
+            <li>
+            </li>
+        </ul>
+        <%} else{%>
+            <ul>
+                <li>
+                    <a href="/users/signin">sign-in</a>
+                </li>
+                <li>
+                 <a href="/users/signup">sign-Up</a>
+                </li>
+            </ul>
+
+            <%
+        } %>
     <h3>hoo this is header from ejs</h3>
 </header>

@@ -2,7 +2,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../model/user");
 passport.use(
-  new LocalStrategy(
+    new LocalStrategy(
     {
       usernameField: "email",
     },
@@ -16,7 +16,9 @@ passport.use(
           console.log("user  not found or invalid password");
           return done(null, false);
         }
-        console.log("user",user);
+        // console.log("user",user);
+        console.log("main passport function")
+
         return done(null, user);
       });
     }
@@ -25,14 +27,16 @@ passport.use(
 
 //serializing the user to decide which key is to to be set in cookie 
 passport.serializeUser(function(user,done){
-    console.log("serial user",user)
+  console.log("serializer chal kr user ko cookie mein set krra h");
+    // console.log("serial user",user)
     done(null,user._id);
 
 })
 
 passport.deserializeUser(function(id,done){
+  console.log("deserializer chla h cookie se user uthaega")
     User.findById(id,function(err,user){
-        console.log("deserial user",user)
+        //  console.log("deserial user",user)
 
         if(err){
             console.log("error in finding the user")
@@ -48,6 +52,7 @@ passport.deserializeUser(function(id,done){
 
 
 passport.checkAuthentication=function(req,res,next){
+console.log("bhai m b chal rha hu mera nam checkAuthentication h")
     if(req.isAuthenticated()){
       console.log("arsh");
         return next();
@@ -57,7 +62,7 @@ passport.checkAuthentication=function(req,res,next){
 
 }
 passport.setAuthenticatedUser=function(req,res,next){
-  console
+  console.log("bhai bhai bhai mera nam hai setAuthenticated user m ab chla hu");
     if(req.isAuthenticated()){
          res.locals.user=req.user
     }
