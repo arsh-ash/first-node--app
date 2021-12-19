@@ -7,6 +7,7 @@ console.log("router is running");
 router.get("/",homeController.home);
 router.use("/users",require("./users"));
 router.use("/friends",require("./friends"));
+router.use("/post",require("./post"));
 
 
 

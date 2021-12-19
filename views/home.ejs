@@ -1,3 +1,15 @@
      <link rel="stylesheet" href="/css/home.css">
     <h1>suing view js we are on home  page Boom Boom</h1>
+   <% if(locals.user){%>
+     <form action="/post/create" method="Post">
+          <textarea row="10" col="20" name="content"></textarea>
+          <input type="submit">
+     </form>
+   <%}   %>
+   
+    <% for( let post of posts){%>
+     <p><%= post.content%></p>
+     <p><%= post.user%></p>
+
+     <%}%>
   

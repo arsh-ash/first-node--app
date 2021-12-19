@@ -27,7 +27,7 @@ passport.use(
 
 //serializing the user to decide which key is to to be set in cookie 
 passport.serializeUser(function(user,done){
-  console.log("serializer chal kr user ko cookie mein set krra h");
+  // console.log("serializer chal kr user ko cookie mein set krra h");
     // console.log("serial user",user)
     done(null,user._id);
 
@@ -52,7 +52,7 @@ passport.deserializeUser(function(id,done){
 
 
 passport.checkAuthentication=function(req,res,next){
-console.log("bhai m b chal rha hu mera nam checkAuthentication h")
+// console.log("bhai m b chal rha hu mera nam checkAuthentication h")
     if(req.isAuthenticated()){
       console.log("arsh");
         return next();
@@ -62,7 +62,7 @@ console.log("bhai m b chal rha hu mera nam checkAuthentication h")
 
 }
 passport.setAuthenticatedUser=function(req,res,next){
-  console.log("bhai bhai bhai mera nam hai setAuthenticated user m ab chla hu");
+  // console.log("bhai bhai bhai mera nam hai setAuthenticated user m ab chla hu");
     if(req.isAuthenticated()){
          res.locals.user=req.user
     }
