@@ -9,7 +9,26 @@
    
     <% for( let post of posts){%>
      <p><%= post.content%></p>
-     <p><%= post.user%></p>
+     <p><%= post.user.name%></p>
+     <%  for(comment of post.comments){
+          %>
+          <p> commnet=<%= comment.content%></p>
+          <p> one who commented=<%= comment.user.name%></p>
+     <%}
+     %>
+  
+    
+     <%  if(locals.user){%> 
+          <form action="/comments/create" method="post">
+          <input type="text" name="content" placeholder="type a comment">
+          <input type="hidden" name="post" value="<%= post._id %>">
+          <input type="submit">
+          </form>
+          <%} %>
+    
 
      <%}%>
+     
+    
+     
   
