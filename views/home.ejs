@@ -10,10 +10,16 @@
     <% for( let post of posts){%>
      <p><%= post.content%></p>
      <p><%= post.user.name%></p>
+     <% if(locals.user && (locals.user.id==post.user.id)){%> 
+          <small>               
+        <a href="/post/destroy/<%=post.id%>"> Delete Post</a>
+          </small>
+          <%} %>
      <%  for(comment of post.comments){
           %>
-          <p> commnet=<%= comment.content%></p>
-          <p> one who commented=<%= comment.user.name%></p>
+          <p> <%= comment.content%></p>
+          <p> commented by=<%= comment.user.name%></p>
+         
      <%}
      %>
   
