@@ -1,40 +1,47 @@
      <link rel="stylesheet" href="/css/home.css">
     <h1>suing view js we are on home  page Boom Boom</h1>
    <% if(locals.user){%>
-     <form action="/post/create" method="Post">
-          <textarea row="10" col="20" name="content"></textarea>
+     <form action="/post/create" method="Post" id="postvala-form">
+          <textarea row="10" col="20" name="content" required></textarea>
           <input type="submit">
      </form>
-   <%}   %>
-   
-    <% for( let post of posts){%>
-     <p><%= post.content%></p>
-     <p><%= post.user.name%></p>
-     <% if(locals.user && (locals.user.id==post.user.id)){%> 
-          <small>               
-        <a href="/post/destroy/<%=post.id%>"> Delete Post</a>
-          </small>
-          <%} %>
-     <%  for(comment of post.comments){
-          %>
-          <p> <%= comment.content%></p>
-          <p> commented by=<%= comment.user.name%></p>
-         
-     <%}
-     %>
-  
-    
-     <%  if(locals.user){%> 
-          <form action="/comments/create" method="post">
-          <input type="text" name="content" placeholder="type a comment">
-          <input type="hidden" name="post" value="<%= post._id %>">
-          <input type="submit">
-          </form>
-          <%} %>
-    
+   <%}%>
 
-     <%}%>
-     
+   <ul>
+        <% for(post of posts){%> 
+
+          <%- include("_post") -%>
+           
+          <%}%>
+   </ul>
+   
+   
+     <h1>List of All users</h1>
+     <ul>
+          <%  for (u of all_users)
+          {%>
+               <p>
+                    <a href="users/profile/<%=u.id%>" style="text-decoration: none;">
+                         <%=u.name %>
+                    </a>
+                    <a href="/friends/add/<%=u.id%>" style="margin-left:40px; text-decoration: none; text-transform: uppercase";>Add Friend</a>
+                    </p>
+                    
+                <%}
+          %>
+     </ul>
+     <%- include('_chatbox') -%>
+
+     <script src="/js/home.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+     <script src="/js/chatEngine.js"></script>
+     <% if(locals.user){%> 
+          <script>
+               new chatEngine("user-chat-box",'<%= locals.user.email %>');
+          </script>
+          
+    <%} %>
+
     
      
   

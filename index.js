@@ -25,6 +25,16 @@ const db=require("./config/mongoose");
 const session=require("express-session");
 const passport=require("passport");
 const passportLocal=require("./config/passport-local-strategy");
+const passportJWT = require('./config/passport-jwt-strategy');
+
+// set up the chatserver to be used with socket.io
+const chatServer=require("http").Server(app);
+const chatSocket=require("./config/chat_sockets").chatSocket(chatServer);
+// chatSoc.chatSocket(chatServer);
+chatServer.listen(5000);
+console.log("chat server is listening on port 5000");
+
+
 
 
 
@@ -55,6 +65,8 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
 //middleware home page chlte is router ki index file m cla jaega
+app.use("/upload",express.static(__dirname+"/upload"));
+
 app.use("/",require("./routes"));
 
 

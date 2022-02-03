@@ -1,7 +1,28 @@
- <link rel="stylesheet" href="/css/profile.css">
+  <link rel="stylesheet" href="/css/profile.css">
 
-    <h1>hiii i am on profile pge of user</h1>
-    <p><%=user.name%></p>
-    <p><%=user.email%></p>
-  
 
+ <img src="<%=user_profile.avatar%>" alt="<%=user_profile.name%>" width="100px" height="100px" style="border-radius: 100%;">
+
+   <% if(locals.user.id==user_profile.id){%>
+      <form action="/users/profile/update/<%=user_profile.id %>" enctype="multipart/form-data" method="post" >
+         <input type="text" name="name" placeholder="enter name" value="<%=user.name%>"> 
+         <input type="text" name="email" placeholder="enter email" value="<%=user.email %>"> 
+         <input type="file" name="avatar" placeholder="profilepicture">
+         <input type="submit" value="update">
+      </form>
+     <% }else{%>
+      <p><%= user_profile.name%></p>
+      <p><%= user_profile.email%></p>
+    <%}%>
+   
+
+      
+
+
+
+      
+     
+
+
+
+ -->

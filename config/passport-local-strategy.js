@@ -12,7 +12,10 @@ passport.use(
           console.log("error in finding user");
           return done(err);
         }
-        if (!user || user.password != password) {
+        // const password = password;
+        // Check if password matches
+        const isMatch =  user.matchPassword(password);
+        if (!user || (!isMatch)) {
           console.log("user  not found or invalid password");
           return done(null, false);
         }
@@ -27,16 +30,16 @@ passport.use(
 
 //serializing the user to decide which key is to to be set in cookie 
 passport.serializeUser(function(user,done){
-  // console.log("serializer chal kr user ko cookie mein set krra h");
+  console.log("serializer chal kr user ko cookie mein set krra h");
     // console.log("serial user",user)
     done(null,user._id);
 
 })
 
 passport.deserializeUser(function(id,done){
-  console.log("deserializer chla h cookie se user uthaega")
+  console.log("deserializer chla h cookie se user uthaega");
     User.findById(id,function(err,user){
-        //  console.log("deserial user",user)
+        // console.log("deserial user",user)
 
         if(err){
             console.log("error in finding the user")
@@ -55,6 +58,7 @@ passport.checkAuthentication=function(req,res,next){
 // console.log("bhai m b chal rha hu mera nam checkAuthentication h")
     if(req.isAuthenticated()){
       console.log("arsh");
+      // console.log(req.cookies);
         return next();
     }
 
@@ -62,7 +66,7 @@ passport.checkAuthentication=function(req,res,next){
 
 }
 passport.setAuthenticatedUser=function(req,res,next){
-  // console.log("bhai bhai bhai mera nam hai setAuthenticated user m ab chla hu");
+  console.log("bhai bhai bhai mera nam hai setAuthenticated user m ab chla hu");
     if(req.isAuthenticated()){
          res.locals.user=req.user
     }

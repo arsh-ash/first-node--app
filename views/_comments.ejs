@@ -1,0 +1,7 @@
+<li>
+    <p> <%= comment.content%></p>
+    <p> commented by=<%= comment.user.name%></p>
+    <%if(locals.user&&(locals.user.id==comment.user.id)){%> 
+        <a href="/comments/destroy/<%=comment.id%>">delete comment</a>
+        <%}%>
+</li>

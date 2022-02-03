@@ -3,25 +3,29 @@ const Post = require("../model/post");
 const Comments=require("../model/comments")
 const { post } = require("../routes");
 
-module.exports.create = function (req, res) {
-  Post.create(
+module.exports.create = async function (req, res) {
+ let post=await Post.create(
     {
       content: req.body.content,
       user: req.user._id,
-    },
-    function (err, post) {
-      if (err) {
-        console.log("error in  creating post");
-        return;
-      }
-      console.log("everything is good");
-      return res.redirect("back");
     }
   );
+
+//   if (req.xhr){
+//     return res.status(200).json({
+//         data: {
+//             post: post
+//         },
+//         message: "Post created!"
+//     });
+// }
+  res.redirect("back");
+  console.log("phirse boom");
 };
 
-module.exports.destroy=function(req,res){
-    Post.findById(req.params.id,function(err,post){
+module.exports.destroy= async function(req,res){
+  try {
+    let post= await Post.findById(req.params.id)
 
         if(post){
             if(post.user==req.user.id){
@@ -29,22 +33,27 @@ module.exports.destroy=function(req,res){
                 console.log("deleting post")
 
 
-                Comments.deleteMany({post:req.params.id},function(err){
-                    console.log(req.params);
-                    // return res.redirect("back");
-                })
+              await  Comments.deleteMany({post:req.params.id})
+              return res.redirect("back");
+              
 
 
             }
-            return res.redirect("back");
         }
         else{
             console.log("not deleting");
             return res.redirect("back");
 
         }
+    
+  } catch (error) {
+    console.log(error);
+    return
+    
+  }
+    
 
-    })
+  
 
 
 
