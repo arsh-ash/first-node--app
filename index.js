@@ -1,7 +1,8 @@
 const express=require("express");
 const app=express();
 const cookieParser= require("cookie-parser");
-port=9000;
+port=process.env.PORT || 9000
+
 //use express router
 // const router=require("./routes");
 app.set('view engine', 'ejs');
